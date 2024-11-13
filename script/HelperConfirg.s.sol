@@ -31,16 +31,12 @@ contract HelperConfig is Script {
     }
 
     function getSepoliaEthconfig() public pure returns (NetworkConfig memory) {
-        NetworkConfig memory sepoliaConfig = NetworkConfig({
-            priceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306
-        }); // since it is a struct, we use {} specify type and object;
+        NetworkConfig memory sepoliaConfig = NetworkConfig({priceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306}); // since it is a struct, we use {} specify type and object;
         return sepoliaConfig;
     } // returns configurations for everyything we need from Sepolia // memory bc its a special object struct
 
     function getEthMainnetconfig() public pure returns (NetworkConfig memory) {
-        NetworkConfig memory ethConfig = NetworkConfig({
-            priceFeed: 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419
-        }); // since it is a struct, we use {} specify type and object;
+        NetworkConfig memory ethConfig = NetworkConfig({priceFeed: 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419}); // since it is a struct, we use {} specify type and object;
         return ethConfig;
     } // returns configurations for everyything we need from Sepolia // memory bc its a special object struct
 
@@ -51,14 +47,9 @@ contract HelperConfig is Script {
             return activeNetworkConfig;
         }
         vm.startBroadcast();
-        MockV3Aggregator mockPriceFeed = new MockV3Aggregator(
-            MAGIC_DEC,
-            MAGIC_INITIAL_PRICE
-        ); // 8, 2000e8 are magic numbers; constructor from MockV3Aggregator takes _decimals and _initialAnswer, so we need to include them here. ETH/USD has 8 dec, starts at USD2000/eth
+        MockV3Aggregator mockPriceFeed = new MockV3Aggregator(MAGIC_DEC, MAGIC_INITIAL_PRICE); // 8, 2000e8 are magic numbers; constructor from MockV3Aggregator takes _decimals and _initialAnswer, so we need to include them here. ETH/USD has 8 dec, starts at USD2000/eth
         vm.stopBroadcast();
-        NetworkConfig memory anvilConfig = NetworkConfig({
-            priceFeed: address(mockPriceFeed)
-        });
+        NetworkConfig memory anvilConfig = NetworkConfig({priceFeed: address(mockPriceFeed)});
         return anvilConfig;
     }
 }
